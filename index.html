@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Meus Lembretes | Corner do Nak Muay</title>
+
+        <!-- Fontes do tema Muay Thai (Big Shoulders Display para títulos, Sarabun para textos) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <!-- BANNER: ringue com cordas e lutador em chute circular (SVG inline, sem arquivos externos) -->
+        <div class="ring-banner" aria-hidden="true">
+            <div class="ring-ropes">
+                <span class="rope rope-red"></span>
+                <span class="rope rope-white"></span>
+                <span class="rope rope-blue"></span>
+            </div>
+
+            <svg class="fighter" viewBox="0 0 420 270" xmlns="http://www.w3.org/2000/svg" role="img">
+                <!-- sombra no tatame -->
+                <ellipse cx="205" cy="256" rx="95" ry="8" fill="#000" opacity=".25"/>
+
+                <!-- perna de apoio -->
+                <path d="M200 156 L196 206 L188 248" stroke="#C98F5E" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- pé de apoio -->
+                <path d="M184 250 L210 250" stroke="#C98F5E" stroke-width="12" stroke-linecap="round"/>
+
+                <!-- braço de trás (guarda) -->
+                <path d="M182 100 L148 124 L152 88" stroke="#B07846" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+                <!-- tronco inclinado para trás -->
+                <path d="M182 98 L200 150" stroke="#C98F5E" stroke-width="30" stroke-linecap="round"/>
+
+                <!-- perna do chute circular -->
+                <path d="M206 152 L268 128 L346 84" stroke="#C98F5E" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- caneleira / munhequeira dourada -->
+                <path d="M300 106 L316 98" stroke="#E0B040" stroke-width="10" stroke-linecap="round"/>
+
+                <!-- calção vermelho com barra dourada -->
+                <path d="M184 140 L226 132 L236 164 L214 176 L196 170 Z" fill="#B3202A"/>
+                <path d="M186 146 L226 138" stroke="#E0B040" stroke-width="5" stroke-linecap="round"/>
+
+                <!-- braço da frente com luva -->
+                <path d="M184 102 L216 112 L236 84" stroke="#C98F5E" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="240" cy="78" r="15" fill="#B3202A"/>
+                <circle cx="152" cy="82" r="14" fill="#8F1822"/>
+
+                <!-- cabeça -->
+                <circle cx="168" cy="68" r="20" fill="#C98F5E"/>
+                <!-- mongkol (tiara de cabeça) -->
+                <path d="M149 62 Q168 40 187 62" stroke="#E0B040" stroke-width="7" fill="none" stroke-linecap="round"/>
+                <path d="M151 69 Q168 52 185 69" stroke="#F4EBD6" stroke-width="3" fill="none"/>
+                <!-- prajioud (faixa no braço) -->
+                <path d="M205 109 L214 113" stroke="#E0B040" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+
+            <div class="ring-title">
+                <p class="ring-kicker">Nak Muay Reminders</p>
+                <p class="ring-slogan">Treino, luta e disciplina: nada fica fora do seu round.</p>
+            </div>
+        </div>
+
+        <main class="container">
+            <header class="header">
+                <div class="brand">
+                    <!-- Luva (logo) -->
+                    <svg class="brand-glove" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M10 32 C10 12 32 6 46 14 C58 21 58 38 50 44 L50 56 L22 56 L22 44 C14 42 10 38 10 32Z" fill="#B3202A"/>
+                        <rect x="20" y="46" width="32" height="12" rx="3" fill="#F4EBD6"/>
+                        <path d="M18 30 C18 20 30 16 40 20" stroke="#E0B040" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </svg>
+
+                    <div>
+                        <h1>Meus Lembretes</h1>
+                        <p>Gerenciamento de lembretes do camp de Muay Thai</p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="btnImprimir" class="btn btn-secondary"> Imprimir </button>
+                    <button id="btnNovo" class="btn btn-primary"> + Novo lembrete </button>
+                </div>
+            </header>
+
+            <!-- FORMULÁRIO -->
+            <section id="formulario" class="card hidden">
+                <h2 id="tituloFormulario">Novo lembrete</h2>
+
+                <form id="formLembrete" novalidate>
+                    <input type="hidden" id="lembreteId">
+                    <div class="form-group">
+                        <label for="descricao"> Descrição do lembrete </label>
+                        <input type="text" id="descricao" placeholder="Ex.: Treino de clinch às 19h, levar bandagens..." maxlength="500" required>
+                        <div class="campo-rodape">
+                            <small id="erroDescricao" class="erro hidden">Informe a descrição do lembrete.</small>
+                            <small id="contadorDescricao" class="contador">0/500</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="btnCancelar" class="btn btn-secondary"> Cancelar </button>
+                        <button type="submit" class="btn btn-primary"> Salvar lembrete </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- FILTRO -->
+            <section class="card">
+                <h2 class="card-title">Filtros</h2>
+
+                <div class="filtro">
+                    <div class="form-group filtro-descricao">
+                        <label for="filtroDescricao"> Descrição </label>
+
+                        <input type="text" id="filtroDescricao" placeholder="Pesquisar...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filtroCadastroInicial"> Cadastro inicial </label>
+                        <input type="date" id="filtroCadastroInicial">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filtroCadastroFinal"> Cadastro final </label>
+                        <input type="date" id="filtroCadastroFinal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filtroAtualizacaoInicial"> Atualização inicial </label>
+                        <input type="date" id="filtroAtualizacaoInicial">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filtroAtualizacaoFinal"> Atualização final </label>
+                        <input type="date" id="filtroAtualizacaoFinal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tamanhoPagina"> Registros por página </label>
+
+                        <select id="tamanhoPagina">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-botoes">
+                        <button id="btnLimpar" type="button" class="btn btn-secondary"> Limpar </button>
+                        <button id="btnFiltrar" type="button" class="btn btn-primary"> Filtrar </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LISTAGEM -->
+            <section class="card">
+                <div class="table-header">
+                    <h2>Lembretes</h2>
+
+                    <span id="totalRegistros"> 0 registros </span>
+                </div>
+
+                <div class="table-container" id="tabelaContainer">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-ordem="Descricao" tabindex="0" aria-sort="none" title="Clique para ordenar">Descrição <span class="seta"></span></th>
+                                <th class="sortable" data-ordem="DataCadastro" tabindex="0" aria-sort="none" title="Clique para ordenar">Cadastro <span class="seta"></span></th>
+                                <th class="sortable" data-ordem="DataAtualizacao" tabindex="0" aria-sort="none" title="Clique para ordenar">Atualização <span class="seta"></span></th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="listaLembretes">
+                        </tbody>
+                    </table>
+
+                    <div id="mensagemVazia" class="empty hidden">
+                        <svg class="empty-glove" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M10 32 C10 12 32 6 46 14 C58 21 58 38 50 44 L50 56 L22 56 L22 44 C14 42 10 38 10 32Z" fill="#B3202A"/>
+                            <rect x="20" y="46" width="32" height="12" rx="3" fill="#D9CDB0"/>
+                        </svg>
+                        <p> Nenhum lembrete encontrado. </p>
+                        <small>Ajuste os filtros ou cadastre um novo lembrete.</small>
+                    </div>
+                </div>
+
+                <!-- PAGINAÇÃO -->
+                <div class="pagination">
+                    <button id="btnAnterior" class="btn btn-secondary"> ← Anterior </button>
+                    <span id="paginaAtual"> Página 1 </span>
+                    <button id="btnProximo" class="btn btn-secondary"> Próxima → </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="rodape">
+            Corner do Nak Muay · Trabalho de Programação III
+        </footer>
+
+        <!-- TOAST -->
+        <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+        <script src="js/app.js"></script>
+    </body>
+</html>
